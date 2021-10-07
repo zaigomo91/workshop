@@ -1,0 +1,49 @@
+---
+title: "Everything is forcats"
+subtitle: "Working with factors"
+author: "Zaira Gonzalez Mora & Luka Vasilj"
+output: 
+  html_document:
+    toc: TRUE
+    df_print: paged
+    number_sections: FALSE
+    highlight: tango
+    theme: lumen
+    toc_depth: 3
+    toc_float: true
+    css: custom.css 
+    self_contained: false
+    includes:
+      after_body: footer.html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+What will be covered in the workshop:
+- what is categorical data?
+- What are factors?
+- Why are they useful?
+- How do we incorporate factors into the concept of tidy data?
+
+```{r}
+
+```
+
+## Categorical Data
+
+## Factors
+
+## Application
+
+## Forcats
+
+
+```{r pressure, echo=FALSE}
+#Potentially include a GIF that shows forcats is an anagram of factor.
+```
+
+
