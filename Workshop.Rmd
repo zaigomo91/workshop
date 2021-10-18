@@ -35,15 +35,53 @@ What will be covered in the workshop:
 
 ## Categorical Data
 
+**What is a Categorical Variable?**
+<br>
+- Definition: Variables that have a fixed and known set of possible values.[source: https://forcats.tidyverse.org/]
+
+- Issue: categorical variables are often coded with numerical values.
+
+- The analysis of categorical data generally involves the use of tables by counting the number of observations that fall into categories.
+
+- For example race, age, group, educational level, income brackets. [Source: http://www.stat.yale.edu/Courses/1997-98/101/catdat.htm]
+<br>
+
 ## Factors
+<br>
+- R uses factors to handle categorical variables.
+- R represents categorical variables with factors.
+- Factors could be easier to work with than characters.
+- A Factor is an integer vector with a levels attribute that stores a set of mappings between integers and categorical values.
+- Factors are helpful for reordering character vectors in non alphabetical order and to improve display.
+- Categorical data is often coded with numerical values.
 
 ## Application
+- Wrangling of categorical data can be difficult.
+- "Careless data cleaning operations can lead to errors or inconsistencies in analysis" (McNamara et all, 2007)
+
 
 ## Forcats
-
+- It is better to work with categorical data using tidyverse than with base R. 
+- Why? Tidyverse is more human readable.
+- HOWEVER, forcats is not part of the core tidyverse as we need to load it explicitly.
+- When you view a factor, R does not display the integers but the values associated with them.
+- The Forecats package provides tools for working with factors, which (again) are R's data structure for categorical data.
+- 
 
 ```{r pressure, echo=FALSE}
 #Potentially include a GIF that shows forcats is an anagram of factor.
+
+### I couldn't find something funny. BUT, we can say this:
+
+# Forecats: *For* working with *cat*egorical variable*s*
+
+#We could create something like this (just for you to see the little image on the section How to solve an anagram in 6 steps): https://anagramscramble.com/anagrams-of/gifts
+
+#I am not sure if we have the time but we could try to change one of the gifs here with our word (READ/DEAR image for instance or Ladies Rest/Lead sister or CAB DRIVER/CRAB DIVER): https://giphy.com/search/anagram
+### I remember changing legends of memes in stats II but I never did it on a gif.
+
+#This one could also work: https://giphy.com/gifs/season-16-the-simpsons-16x16-xT5LMIPOBXmmVuoLQI 
+
 ```
 
 
