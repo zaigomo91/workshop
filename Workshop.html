@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Zaira Gonzalez Mora &amp; Luka Vasilj" />
+
+
+<title>Workshop 8. Categorical Variables with forcats</title>
+
+<script src="Workshop_files/header-attrs-2.11/header-attrs.js"></script>
+<script src="Workshop_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="Workshop_files/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="Workshop_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="Workshop_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="Workshop_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="Workshop_files/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="Workshop_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="Workshop_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="Workshop_files/navigation-1.1/tabsets.js"></script>
+<link href="Workshop_files/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="Workshop_files/pagedtable-1.1/js/pagedtable.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Workshop 8. Categorical Variables with forcats</h1>
+<h3 class="subtitle">Working with factors</h3>
+<h4 class="author">Zaira Gonzalez Mora &amp; Luka Vasilj</h4>
+
+</div>
+
+
+<hr />
+<div id="introduction-categorical-data-factors-forcats" class="section level2">
+<h2>Introduction: Categorical Data, Factors &amp; <code>forcats</code> 🤓</h2>
+<p>By now, we already know that <strong>data cleaning</strong> is important. We have realized that treating certain variables is not always so straightforward and we struggle because we know that this can impact our analysis. This is always the case when we find <strong>Categorical Data</strong>.</p>
+<p>In this workshop we are going to show you how to treat <strong>Categorical Data</strong> using the <strong><code>forcats</code></strong> tool. It will help you to work with <strong>factors</strong>.</p>
+<p><strong>What do we need?</strong></p>
+<ul>
+<li>To install the package <strong><code>forcats</code></strong> in R.</li>
+</ul>
+<p><img src="Images/forcats.png" /></p>
+<p><em>Note:</em></p>
+<ul>
+<li><p>You can also use the <strong><code>forcats</code></strong> tool if you have already installed the tidyverse package.</p></li>
+<li><p>Or the development version from GutHub: <code>devtools::install_github("tidyverse/forcats")</code>.</p></li>
+</ul>
+<p><br> <strong>What will we cover in this workshop?</strong></p>
+<ul>
+<li><p>Categorical Data</p></li>
+<li><p>What are factors?</p></li>
+<li><p>Application: why are factors useful?</p></li>
+<li><p>Incorporating factors into the concept of tidy data: Hello <strong><code>forcats</code></strong>!</p></li>
+<li><p>Main and most useful functions from <strong><code>forcats</code></strong></p>
+<ul>
+<li><p>The A Function</p></li>
+<li><p>The B Function</p></li>
+<li><p>The C Function</p></li>
+<li><p>Etc</p></li>
+</ul></li>
+<li><p>Factors with <strong><code>forcats</code></strong>: Cheat sheet</p></li>
+<li><p>Bibliography</p></li>
+</ul>
+</div>
+<div id="categorical-data" class="section level2">
+<h2>Categorical Data 📈</h2>
+<p><strong>What is a Categorical Variable?</strong></p>
+<p><em>“Careless data cleaning operations can lead to errors or inconsistencies in analysis”</em> (McNamara et all, 2007)</p>
+<ul>
+<li><p>Categorical variables have a fixed and known set of possible values.</p></li>
+<li><p>They represent types of data that may be divided into groups.</p></li>
+<li><p>Examples of categorical variables: race, age, group, educational level, income brackets.</p></li>
+</ul>
+<p><strong>What is the problem with categorical variables?</strong></p>
+<ul>
+<li><p>Wrangling categorical data can be difficult because many variables are often coded with numerical values.</p></li>
+<li><p>Categorical variables are often stored with different values in a dataset. For instance, we need to differentiate category numbers and category labels. We need consistency to work with them properly. - How annoying! 😐</p></li>
+<li><p>We need to know their <em>true value</em> not to miss important information.</p></li>
+</ul>
+</div>
+<div id="what-are-factors" class="section level2">
+<h2>What are factors? 🔡</h2>
+<ul>
+<li><p>A <strong>factor</strong> is an integer vector with <strong>levels attribute</strong> that stores a set of mappings between integers and categorical values.</p></li>
+<li><p>Factors are R’s data structure for categorical data. In simpler words, <strong>R represents categorical data with factors</strong>.</p></li>
+<li><p>R displays not the integers from a variable, but the levels associated with them.</p></li>
+</ul>
+</div>
+<div id="application-why-are-factors-useful" class="section level2">
+<h2>Application: why are factors useful? 📝</h2>
+<ul>
+<li><p>Factors in the R language allow to treat character variables in a different way.</p></li>
+<li><p>Factors could be easier to work with than characters.</p></li>
+<li><p>Factors are helpful for reordering character vectors in non alphabetical order and to improve display.</p></li>
+<li><p>They allow to inspect levels in a more detailed way.</p></li>
+<li><p>Working with factors is a nicer alternative that working only with dummies.</p></li>
+</ul>
+</div>
+<div id="incorporating-factors-into-the-concept-of-tidy-data-hello-forcats" class="section level2">
+<h2>Incorporating factors into the concept of tidy data: Hello <strong><code>forcats</code></strong>! 🐱</h2>
+<p><strong>Nice Anagram, Hadley!</strong></p>
+<p><img src="Images/anagram.png" /></p>
+<p><strong>Hello </strong><code>forcats</code><strong>!</strong></p>
+<ul>
+<li><p>The <strong><code>forcats</code></strong> package provides useful tools to solve probelms with factors.</p></li>
+<li><p>It is better to work with categorical data using tidyverse than with base R. We will see why!</p></li>
+</ul>
+</div>
+<div id="main-and-most-useful-functions" class="section level2">
+<h2>Main and most useful functions</h2>
+<div id="the-a-function" class="section level3">
+<h3>The A Function</h3>
+<ul>
+<li>Example</li>
+</ul>
+</div>
+<div id="the-b-function" class="section level3">
+<h3>The B Function</h3>
+<ul>
+<li>Example</li>
+</ul>
+</div>
+<div id="the-c-function" class="section level3">
+<h3>The C Function</h3>
+<p>*Example</p>
+</div>
+<div id="etc." class="section level3">
+<h3>Etc.</h3>
+<p>*Example</p>
+</div>
+</div>
+<div id="factors-with-forcats-cheat-sheet" class="section level2">
+<h2>Factors with <strong><code>forcats</code></strong>:: Cheat Sheet</h2>
+<p><img src="Images/cheatsheet.PNG" /></p>
+</div>
+<div id="bibliography" class="section level2">
+<h2>Bibliography</h2>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
